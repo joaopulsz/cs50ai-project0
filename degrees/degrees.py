@@ -107,27 +107,28 @@ def shortest_path(source, target):
         if frontier.empty():
             return None
 
-        # Choose a node from the frontier
+        # Pick starting node and mark as explored
         node = frontier.remove()
-        
-        # If node is the goal, then we have a solution
-        if node.state == target:
-            step = []
-            while node.parent is not None:
-                step.insert(0, (node.action, node.state))
-                node = node.parent
-            solution = step
-
-            return solution
-
-        # Mark node as explored
         explored.add(node.state)
 
         # Add neighbors to frontier
         for action, state in neighbors_for_person(node.state):
             if not frontier.contains_state(state) and state not in explored:
                 child = Node(state=state, parent=node, action=action)
+
+                # If node is the goal, then we have a solution
+                if child.state == target:
+                    return solution(child)
+
                 frontier.add(child)
+
+
+def solution(node):
+    step = []
+    while node.parent is not None:
+        step.insert(0, (node.action, node.state))
+        node = node.parent
+    return step
 
 
 def person_id_for_name(name):
