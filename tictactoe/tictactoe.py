@@ -72,7 +72,12 @@ def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
-    raise NotImplementedError
+    if board[0][0] and board[0][1] and board[0][2] == X or board[1][0] and board[1][1] and board[1][2] == X or board[2][0] and board[2][1] and board[2][2] == X or board[0][0] and board[1][1] and board[2][2] == X or board[0][2] and board[1][1] and board[2][0] == X:
+        return X
+    elif board[0][0] and board[0][1] and board[0][2] == O or board[1][0] and board[1][1] and board[1][2] == O or board[2][0] and board[2][1] and board[2][2] == O or board[0][0] and board[1][1] and board[2][2] == O or board[0][2] and board[1][1] and board[2][0] == O:
+        return O
+    else:
+        return None
 
 
 def terminal(board):
