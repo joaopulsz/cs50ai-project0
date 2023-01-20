@@ -84,7 +84,19 @@ def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
-    raise NotImplementedError
+    is_board_full = True
+
+    # Check whether there is still an empty cell
+    for i in range(len(board)):
+        for j in range(len(board[i])):
+            if board[i][j] == EMPTY:
+                is_board_full == False
+                break
+
+    if winner(board) != None or is_board_full == True:
+        return True
+
+    return False
 
 
 def utility(board):
