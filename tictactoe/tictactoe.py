@@ -118,7 +118,17 @@ def minimax(board):
     if terminal(board) == True:
             return None
 
-    return 
+    moves = []
+
+    if player(board) == X:
+        for action in actions(board):
+            moves.append([min_value(result(board, action)), action])
+        return sorted(moves, key = lambda x: x[0])[0][-1]
+
+    elif player(board) == O:
+        for action in actions(board):
+            moves.append([max_value(result(board, action)), action])
+        return sorted(moves, key = lambda x: x[0])[0][1]
     
 
 def max_value(board):
