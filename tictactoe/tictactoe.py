@@ -90,7 +90,7 @@ def terminal(board):
     for i in range(len(board)):
         for j in range(len(board[i])):
             if board[i][j] == EMPTY:
-                is_board_full == False
+                is_board_full = False
                 break
 
     if winner(board) != None or is_board_full == True:
@@ -115,3 +115,27 @@ def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
+    if terminal(board) == True:
+            return None
+
+    return 
+    
+
+def max_value(board):
+    if terminal(board):
+        return utility(board)
+
+    v = - math.inf
+    for action in actions(board):
+        v = max(v, min_value(result(board, action)))
+    return v
+
+def min_value(board):
+    if terminal(board):
+        return utility(board)
+
+    v = math.inf
+    for action in actions(board):
+        v = min(v, max_value(result(board, action)))
+    return v
+    
