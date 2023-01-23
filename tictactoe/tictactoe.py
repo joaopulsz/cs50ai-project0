@@ -34,10 +34,10 @@ def player(board):
             elif board[i][j] == O:
                 total_o += 1
 
-    if total_x <= total_o:
-        return X
-    else:
+    if total_x > total_o:
         return O
+    else:
+        return X
 
 
 def actions(board):
@@ -62,10 +62,10 @@ def result(board, action):
     if board[action[0]][action[1]] == EMPTY:
         # Make copy of the board, get current player, and return updated board
         board_copy = copy.deepcopy(board)
-        board_copy[action[0]][action[1]] == player(board)
+        board_copy[action[0]][action[1]] = player(board)
         return board_copy
     else:
-        raise Exception
+        raise Exception("Invalid move.")
 
 
 def winner(board):
@@ -84,19 +84,17 @@ def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
-    is_board_full = True
+
+    if winner(board) != None:
+        return True
 
     # Check whether there is still an empty cell
     for i in range(len(board)):
         for j in range(len(board[i])):
             if board[i][j] == EMPTY:
-                is_board_full = False
-                break
+                return False
 
-    if winner(board) != None or is_board_full == True:
-        return True
-
-    return False
+    return True
 
 
 def utility(board):
@@ -123,7 +121,7 @@ def minimax(board):
     if player(board) == X:
         for action in actions(board):
             moves.append([min_value(result(board, action)), action])
-        return sorted(moves, key = lambda x: x[0])[0][-1]
+        return sorted(moves, key = lambda x: x[0], reverse=True)[0][1]
 
     elif player(board) == O:
         for action in actions(board):
